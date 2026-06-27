@@ -26,8 +26,8 @@ export type BookDetail = {
 
 export const navItems: NavItem[] = [
   { id: "home", label: "Home", href: "/" },
-  { id: "bookshelf", label: "Bookshelf", href: "#" },
-  { id: "book", label: "Book", href: "#" },
+  { id: "bookshelf", label: "Library", href: "#" },
+  { id: "book", label: "Current Reading", href: "#" },
   { id: "trophy", label: "Reading Challenge", href: "/challenge" },
   { id: "calendar", label: "Reading Tracker", href: "/tracker" },
 ];
