@@ -3,17 +3,17 @@
 import { useState } from "react";
 
 import { QuoteItem } from "@/components/book/quote-item";
+import { DialogActions } from "@/components/common/dialog-actions";
+import { FormField } from "@/components/common/form-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import type { BookQuote } from "@/lib/mock-data";
 
@@ -77,8 +77,7 @@ export function QuotesSection({ quotes, onQuotesChange }: QuotesSectionProps) {
           </DialogHeader>
 
           <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="quote-text">Quote</Label>
+            <FormField label="Quote" htmlFor="quote-text">
               <Textarea
                 id="quote-text"
                 value={text}
@@ -86,10 +85,9 @@ export function QuotesSection({ quotes, onQuotesChange }: QuotesSectionProps) {
                 placeholder="Enter the quote..."
                 className="min-h-24 rounded-xl"
               />
-            </div>
+            </FormField>
 
-            <div className="space-y-2">
-              <Label htmlFor="quote-page">Page number</Label>
+            <FormField label="Page number" htmlFor="quote-page">
               <Input
                 id="quote-page"
                 type="number"
@@ -98,15 +96,14 @@ export function QuotesSection({ quotes, onQuotesChange }: QuotesSectionProps) {
                 onChange={(event) => setPage(event.target.value)}
                 placeholder="e.g. 27"
               />
-            </div>
+            </FormField>
           </div>
 
-          <DialogFooter className="mt-2 border-0 bg-transparent p-0 sm:justify-end">
-            <Button variant="outline" onClick={() => setOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>Save quote</Button>
-          </DialogFooter>
+          <DialogActions
+            onCancel={() => setOpen(false)}
+            onConfirm={handleSave}
+            confirmLabel="Save quote"
+          />
         </DialogContent>
       </Dialog>
     </section>

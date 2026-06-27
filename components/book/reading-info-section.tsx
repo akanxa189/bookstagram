@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 
+import { DialogActions } from "@/components/common/dialog-actions";
+import { FormField } from "@/components/common/form-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 type ReadingInfo = {
@@ -87,29 +87,26 @@ export function ReadingInfoSection({
 
             <div className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="started-reading">Started reading</Label>
+                <FormField label="Started reading" htmlFor="started-reading">
                   <Input
                     id="started-reading"
                     value={startedReading}
                     onChange={(event) => setStartedReading(event.target.value)}
                     placeholder="e.g. 10 Jan 2024"
                   />
-                </div>
+                </FormField>
 
-                <div className="space-y-2">
-                  <Label htmlFor="finished-reading">Finished reading</Label>
+                <FormField label="Finished reading" htmlFor="finished-reading">
                   <Input
                     id="finished-reading"
                     value={finishedReading}
                     onChange={(event) => setFinishedReading(event.target.value)}
                     placeholder="e.g. 28 Jan 2024"
                   />
-                </div>
+                </FormField>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="thoughts">My thoughts</Label>
+              <FormField label="My thoughts" htmlFor="thoughts">
                 <Textarea
                   id="thoughts"
                   value={thoughts}
@@ -117,15 +114,13 @@ export function ReadingInfoSection({
                   placeholder="Share your thoughts about this book..."
                   className="min-h-32 rounded-xl"
                 />
-              </div>
+              </FormField>
             </div>
 
-            <DialogFooter className="mt-2 border-0 bg-transparent p-0 sm:justify-end">
-              <Button variant="outline" onClick={() => setOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={handleSave}>Save</Button>
-            </DialogFooter>
+            <DialogActions
+              onCancel={() => setOpen(false)}
+              onConfirm={handleSave}
+            />
           </DialogContent>
         </Dialog>
       </div>

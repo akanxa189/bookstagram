@@ -2,17 +2,16 @@
 
 import { useState } from "react";
 
+import { DialogActions } from "@/components/common/dialog-actions";
+import { FormField } from "@/components/common/form-field";
 import { StarRatingInput } from "@/components/common/star-rating-input";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { createBook, type CreateBookInput } from "@/lib/books-store";
 import { resizeCoverImage } from "@/lib/image-utils";
 
@@ -92,28 +91,25 @@ export function AddBookDialog({
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="book-title">Title</Label>
+          <FormField label="Title" htmlFor="book-title">
             <Input
               id="book-title"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               placeholder="Book title"
             />
-          </div>
+          </FormField>
 
-          <div className="space-y-2">
-            <Label htmlFor="book-author">Author</Label>
+          <FormField label="Author" htmlFor="book-author">
             <Input
               id="book-author"
               value={author}
               onChange={(event) => setAuthor(event.target.value)}
               placeholder="Author name"
             />
-          </div>
+          </FormField>
 
-          <div className="space-y-2">
-            <Label htmlFor="book-year">Year</Label>
+          <FormField label="Year" htmlFor="book-year">
             <Input
               id="book-year"
               type="number"
@@ -121,10 +117,9 @@ export function AddBookDialog({
               onChange={(event) => setYear(event.target.value)}
               placeholder="Publication year"
             />
-          </div>
+          </FormField>
 
-          <div className="space-y-2">
-            <Label htmlFor="book-cover">Cover image</Label>
+          <FormField label="Cover image" htmlFor="book-cover">
             <Input
               id="book-cover"
               type="file"
@@ -141,22 +136,19 @@ export function AddBookDialog({
                 />
               </div>
             )}
-          </div>
+          </FormField>
 
-          <div className="space-y-2">
-            <Label>Rating</Label>
+          <FormField label="Rating">
             <StarRatingInput rating={rating} onChange={setRating} />
-          </div>
+          </FormField>
         </div>
 
-        <DialogFooter className="mt-2 border-0 bg-transparent p-0 sm:justify-end">
-          <Button variant="outline" onClick={() => handleOpenChange(false)}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave} disabled={!title.trim() || !author.trim()}>
-            Save book
-          </Button>
-        </DialogFooter>
+        <DialogActions
+          onCancel={() => handleOpenChange(false)}
+          onConfirm={handleSave}
+          confirmLabel="Save book"
+          confirmDisabled={!title.trim() || !author.trim()}
+        />
       </DialogContent>
     </Dialog>
   );

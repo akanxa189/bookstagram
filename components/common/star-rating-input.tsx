@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type StarRatingInputProps = {
@@ -22,12 +23,14 @@ export function StarRatingInput({
         const filled = value <= rating;
 
         return (
-          <button
+          <Button
             key={value}
             type="button"
+            variant="ghost"
+            size="icon-xs"
             onClick={() => onChange(value)}
             aria-label={`Rate ${value} out of ${max}`}
-            className="rounded-sm transition-transform hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+            className="rounded-sm hover:scale-110"
           >
             <Star
               className={cn(
@@ -37,7 +40,7 @@ export function StarRatingInput({
                   : "fill-muted text-muted"
               )}
             />
-          </button>
+          </Button>
         );
       })}
     </div>
