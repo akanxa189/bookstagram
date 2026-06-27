@@ -1,16 +1,14 @@
-import { BookOpen, Clock } from "lucide-react";
+import { Clock, Heart } from "lucide-react";
+import Link from "next/link";
 
 import { BookCard } from "@/components/dashboard/book-card";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
-import { ProgressCard } from "@/components/dashboard/progress-card";
 import { SectionHeader } from "@/components/dashboard/section-header";
 import { StatCard } from "@/components/dashboard/stat-card";
+import { WishlistPreview } from "@/components/dashboard/wishlist-preview";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
-import {
-  currentlyReading,
-  dashboardStats,
-  recentlyAdded,
-} from "@/lib/mock-data";
+import { Button } from "@/components/ui/button";
+import { dashboardStats, recentlyAdded } from "@/lib/mock-data";
 
 export default function Home() {
   return (
@@ -24,17 +22,19 @@ export default function Home() {
       </section>
 
       <section className="mb-10">
-        <SectionHeader title="Currently reading" icon={BookOpen} />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {currentlyReading.map((book) => (
-            <ProgressCard
-              key={book.id}
-              title={book.title}
-              author={book.author}
-              progress={book.progress}
-            />
-          ))}
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <SectionHeader title="Wishlist" icon={Heart} className="mb-0" />
+          <Button
+            variant="outline"
+            size="sm"
+            nativeButton={false}
+            render={<Link href="/wishlist" />}
+            className="rounded-xl"
+          >
+            View all
+          </Button>
         </div>
+        <WishlistPreview />
       </section>
 
       <section>

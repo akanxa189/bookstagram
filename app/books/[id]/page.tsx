@@ -9,7 +9,7 @@ export default async function BookPage({ params }: BookPageProps) {
   const { id } = await params;
 
   return (
-    <DashboardLayout activeNavId="trophy">
+    <DashboardLayout activeNavId="bookshelf">
       <BookDetailPageClient id={id} />
     </DashboardLayout>
   );

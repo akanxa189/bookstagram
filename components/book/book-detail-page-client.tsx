@@ -29,8 +29,8 @@ export function BookDetailPageClient({ id }: BookDetailPageClientProps) {
     return (
       <div className="flex min-h-[40vh] flex-col items-center justify-center gap-4 text-center">
         <p className="text-muted-foreground">Book not found.</p>
-        <Button variant="outline" nativeButton={false} render={<Link href="/challenge" />}>
-          Back to challenge
+        <Button variant="outline" nativeButton={false} render={<Link href="/library" />}>
+          Back to library
         </Button>
       </div>
     );

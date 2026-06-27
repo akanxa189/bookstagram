@@ -1,4 +1,9 @@
-import { books as seedBooks, type BookDetail } from "@/lib/mock-data";
+import {
+  books as seedBooks,
+  getReadStatus,
+  type BookDetail,
+  type ReadStatus,
+} from "@/lib/mock-data";
 
 export const BOOKS_STORAGE_KEY = "bookstagram-books";
 
@@ -122,12 +127,28 @@ export function getBookById(id: string): BookDetail | undefined {
   return getAllBooks().find((book) => book.id === id);
 }
 
+export function getLibraryBooks(): BookDetail[] {
+  return loadUserBooks();
+}
+
 export type CreateBookInput = {
   title: string;
   author: string;
   year: number;
-  rating: number;
+  rating?: number;
   coverUrl?: string;
+  readStatus?: ReadStatus;
+  purchasedAt?: string;
+};
+
+export type CreateLibraryBookInput = {
+  title: string;
+  author: string;
+  year: number;
+  coverUrl?: string;
+  readStatus?: ReadStatus;
+  purchasedAt?: string;
+  rating?: number;
 };
 
 export function createBook(input: CreateBookInput): BookDetail {
@@ -136,7 +157,9 @@ export function createBook(input: CreateBookInput): BookDetail {
     title: input.title,
     author: input.author,
     year: input.year,
-    rating: input.rating,
+    rating: input.rating ?? 5,
+    readStatus: input.readStatus ?? "read",
+    purchasedAt: input.purchasedAt,
     coverUrl: input.coverUrl,
     genres: [],
     quotes: [],
@@ -148,6 +171,16 @@ export function createBook(input: CreateBookInput): BookDetail {
 
   return book;
 }
+
+export function createLibraryBook(input: CreateLibraryBookInput): BookDetail {
+  return createBook({
+    ...input,
+    rating: input.rating ?? 0,
+    readStatus: input.readStatus ?? "unread",
+  });
+}
+
+export { getReadStatus };
 
 export function saveBook(book: BookDetail): void {
   const baseIds = new Set(getBaseBooks().map((item) => item.id));

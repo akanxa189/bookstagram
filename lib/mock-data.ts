@@ -10,6 +10,8 @@ export type BookQuote = {
   page: number;
 };
 
+export type ReadStatus = "read" | "unread";
+
 export type BookDetail = {
   id: string;
   title: string;
@@ -17,6 +19,8 @@ export type BookDetail = {
   year: number;
   genres: string[];
   rating: number;
+  readStatus?: ReadStatus;
+  purchasedAt?: string;
   startedReading?: string;
   finishedReading?: string;
   thoughts?: string;
@@ -24,17 +28,25 @@ export type BookDetail = {
   coverUrl?: string;
 };
 
+export function getReadStatus(book: BookDetail): ReadStatus {
+  if (book.readStatus) {
+    return book.readStatus;
+  }
+
+  return book.finishedReading ? "read" : "unread";
+}
+
 export const navItems: NavItem[] = [
   { id: "home", label: "Home", href: "/" },
-  { id: "bookshelf", label: "Library", href: "#" },
-  { id: "book", label: "Current Reading", href: "#" },
+  { id: "bookshelf", label: "Library", href: "/library" },
+  { id: "wishlist", label: "Wishlist", href: "/wishlist" },
   { id: "trophy", label: "Reading Challenge", href: "/challenge" },
   { id: "calendar", label: "Reading Tracker", href: "/tracker" },
 ];
 
 export const dashboardStats = [
   { value: "12", label: "books read this year" },
-  { value: "2", label: "currently reading" },
+  { value: "3", label: "on wishlist" },
   { value: "24%", label: "of 50 book goal" },
 ];
 

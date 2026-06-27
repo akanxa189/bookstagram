@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  BookOpen,
   Calendar,
+  Heart,
   Home,
   Library,
   Trophy,
@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 const iconMap: Record<string, LucideIcon> = {
   home: Home,
   bookshelf: Library,
-  book: BookOpen,
+  wishlist: Heart,
   trophy: Trophy,
   calendar: Calendar,
 };

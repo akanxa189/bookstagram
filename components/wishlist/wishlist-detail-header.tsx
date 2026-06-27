@@ -1,30 +1,31 @@
 import { ArrowLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
 
+import { StarRating } from "@/components/common/star-rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { BookDetail } from "@/lib/mock-data";
+import type { WishlistBook } from "@/lib/wishlist";
 
-type BookDetailHeaderProps = {
-  book: Pick<BookDetail, "title" | "author" | "year" | "genres" | "coverUrl">;
+type WishlistDetailHeaderProps = {
+  book: WishlistBook;
 };
 
-export function BookDetailHeader({ book }: BookDetailHeaderProps) {
+export function WishlistDetailHeader({ book }: WishlistDetailHeaderProps) {
   return (
     <header className="mb-8">
       <Button
         variant="ghost"
         size="sm"
         nativeButton={false}
-        render={<Link href="/library" />}
+        render={<Link href="/wishlist" />}
         className="mb-6 -ml-2 gap-2 text-muted-foreground hover:text-primary"
       >
         <ArrowLeft className="size-4" />
-        Back to library
+        Back to wishlist
       </Button>
 
       <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-        <div className="relative size-36 shrink-0 self-center overflow-hidden rounded-2xl bg-secondary sm:self-start sm:size-40">
+        <div className="relative size-36 shrink-0 self-center overflow-hidden rounded-2xl bg-secondary sm:self-start sm:size-44">
           {book.coverUrl ? (
             <img
               src={book.coverUrl}
@@ -44,7 +45,15 @@ export function BookDetailHeader({ book }: BookDetailHeaderProps) {
               {book.title}
             </h1>
             <p className="text-muted-foreground">
-              {book.author} · {book.year}
+              {book.author}
+              {book.year ? ` · ${book.year}` : ""}
+            </p>
+          </div>
+
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            <StarRating rating={book.rating} className="gap-1" />
+            <p className="text-sm text-muted-foreground">
+              {book.rating} out of 5 average rating
             </p>
           </div>
 
